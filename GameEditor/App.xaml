@@ -1,0 +1,14 @@
+﻿<Application x:Class="GameEditor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:GameEditor"
+             StartupUri="GameProject/ProjectMenu.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="GameProject/Style/Style_RoundedButton.xaml"/>
+                <ResourceDictionary Source="GameProject/Style/Style_BackgroundThemeMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
