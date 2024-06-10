@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\ACER\source\repos\GameEngine2D\GameEditor\App.xaml
-6-1313028687
+1214974803
+5-1782535072
+30-235901152
+26714936001
+Dictionaries\ControlTemplates.xaml;Dictionaries\EditorColors.xaml;Editors\WorldEditor\GameObjectView.xaml;Editors\WorldEditor\ProjectHierarchyView.xaml;Editors\WorldEditor\SceneView.xaml;Editors\WorldEditor\WorldEditorView.xaml;GameProject\ProjectMenu.xaml;GameProject\View\CreateProjectView.xaml;GameProject\View\OpenProjectView.xaml;MainWindow.xaml;Utilities\LoggerView.xaml;Utilities\UndoRedoView.xaml;
 
-14-682594926
-14-1317975792
-GameProject\ProjectMenu.xaml;GameProject\Style\Style_BackgroundThemeMenu.xaml;GameProject\Style\Style_RoundedButton.xaml;GameProject\View\CreateProjectView.xaml;GameProject\View\OpenProjectView.xaml;MainWindow.xaml;
-
-False
+True
 

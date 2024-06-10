@@ -24,7 +24,8 @@ namespace GameEditor.GameProject.ViewModel
 
     class CreateProject : ViewModelBase
     {
-        private readonly string _templateTestPath = @"..\..\..\GameEditor\ProjectTemplates";
+        // DIrektori untuk template membuat project
+        private readonly string _templateTestPath = @"C:\Users\ACER\source\repos\GameEngine2D\GameEditor\ProjectTemplates";
         private string _projectName = "New Project";
         public string ProjectName
         {
@@ -40,6 +41,7 @@ namespace GameEditor.GameProject.ViewModel
             }
         }
 
+        // Direktori bawaan untuk lokasi project
         private string _projectPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\2dProjects\";
         public string ProjectPath
         {
@@ -141,52 +143,71 @@ namespace GameEditor.GameProject.ViewModel
 
         public string NewProject(ProjectTemplate template)
         {
+            // Validasi data dari field input
             ValidateProject();
+
+            // Jika input salah, maka kembalikan nilai string kosong
             if (!IsValid) return string.Empty;
 
+            // Jika data dari lokasi project tidak berakhiran dengan '\', maka tambahkan tanda '\'
             if (!ProjectPath.EndsWith(Path.DirectorySeparatorChar.ToString())) ProjectPath += @"\";
             var path = $@"{ProjectPath}{ProjectName}\";
 
             try
             {
+                // Jika file belum ada pada direktori, maka buat folder baru
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 foreach (var folder in template.Folders)
                 {
+                    // Membuat folder baru pada direktori
                     Directory.CreateDirectory(Path.GetFullPath( Path.Combine(Path.GetDirectoryName(path), folder) ));
                 }
+
+                // Membuat direktori '.GameEngine2D' dan setel sebagai direktori tersembunyi
                 var dirInfo = new DirectoryInfo(path + @"\.GameEngine2D");
                 dirInfo.Attributes |= FileAttributes.Hidden;
 
-                var project = new Project(ProjectName, path);
-                Serializer.ToFile(project, path + "ProjectName" + Project.Extension);
+                // Membaca data pada template
+                var projectXML = File.ReadAllText(template.ProjectFilePath);
+                projectXML = string.Format(projectXML, ProjectName, ProjectPath);
+
+                var projectPath = Path.GetFullPath( Path.Combine(path, $"{ProjectName}{Project.Extension}") );
+                File.WriteAllText(projectPath, projectXML);
+                
                 return path;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                return string.Empty;
+                Logger.Log(MessageType.Error, $"Failed to create {ProjectName}");
+                throw;
             }
         }
 
+        // CONSTRUCTOR
+        // Create Project - Membuat project
         public CreateProject()
         {
             try
             {
+                // Mencari file pada direktori dan menelusuri setiap direktori di dalamnya
                 var templateFiles = Directory.GetFiles(_templateTestPath, "template.xml", SearchOption.AllDirectories);
                 Debug.Assert(templateFiles.Any());
+
+                // Membagi setiap data dari list file
                 foreach (var file in templateFiles)
                 {
                     //// Create template files in template path
                     //var template = new ProjectTemplate()
                     //{
-                    //    ProjectFile = "projectName.engine2d",
+                    //    ProjectFile = "project.2dproj",
                     //    Folders = new List<string>() { ".GameEngine2D", "Content", "GameCode" }
                     //};
-
                     //Serializer.ToFile(template, file);
 
-                    // Read template files in template path
+                    // Membaca file 'template.xml' yang telah diserialisasi
                     var template = Serializer.FromFile<ProjectTemplate>(file);
+
                     template.ProjectFilePath = Path.GetFullPath( Path.Combine(Path.GetDirectoryName(file), template.ProjectFile) );
                     ProjectTemplateItem = template;
                 }
@@ -194,6 +215,8 @@ namespace GameEditor.GameProject.ViewModel
             catch(Exception e)
             {
                 Debug.WriteLine(e.Message);
+                Logger.Log(MessageType.Error, $"Failed to read project template");
+                throw;
             }
         }
     }

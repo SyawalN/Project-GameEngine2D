@@ -1,6 +1,9 @@
 ﻿using GameEditor.GameProject.ViewModel;
+using GameEditor.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,14 +29,42 @@ namespace GameEditor.GameProject.View
             InitializeComponent();
         }
 
+        // EventHandler - Apabila user menekan tombol 'Create Project'
         private void OnClickBtn_Create(object sender, RoutedEventArgs e)
         {
+            // Data context ViewModel - Create Project
             var vm = DataContext as CreateProject;
+
+            // Lokasi file project yang baru dibuat
             var projectPath = vm.NewProject(vm.getProjectTemplate());
+            bool dialogResult = false;
+            var win = Window.GetWindow(this);
             if (!string.IsNullOrEmpty(projectPath))
             {
-                var window = Window.GetWindow(this);
-                if (window != null) window.Close();
+                dialogResult = true;
+                var project = OpenProject.Open(new ProjectData { ProjectName = vm.ProjectName, ProjectPath = projectPath });
+                win.DataContext = project;
+            }
+            win.DialogResult = dialogResult;
+            win.Close();
+        }
+
+        private void OnClickButton_OpenExplorer(object sender, RoutedEventArgs e)
+        {
+            var d = DataContext as CreateProject;
+            try
+            {
+                if (!Directory.Exists(d.ProjectPath)) Directory.CreateDirectory(d.ProjectPath);
+                var dialog = new FolderPicker();
+                dialog.InputPath = d.ProjectPath;
+                if (dialog.ShowDialog() == true)
+                {
+                    d.ProjectPath = dialog.ResultPath;
+                } 
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
             }
         }
     }
