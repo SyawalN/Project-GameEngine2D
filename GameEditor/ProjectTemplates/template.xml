@@ -5,5 +5,5 @@
 		<a:string>Content</a:string>
 		<a:string>GameCode</a:string>
 	</Folders>
-	<ProjectFile>projectName.engine2d</ProjectFile>
+	<ProjectFile>project.2dproj</ProjectFile>
 </ProjectTemplate>

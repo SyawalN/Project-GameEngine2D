@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameEditor.GameProject.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,18 @@ namespace GameEditor.GameProject
         public ProjectMenu()
         {
             InitializeComponent();
+            Loaded += OnProjectMenuLoaded;
+        }
+
+        private void OnProjectMenuLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnProjectMenuLoaded;
+            if (!OpenProject.Projects.Any())
+            {
+                openProjectButton.IsEnabled = false;
+                openProjectView.Visibility = Visibility.Hidden;
+                button_Clicked(createProjectButton, new RoutedEventArgs());
+            }
         }
 
         private void button_Clicked(object sender, RoutedEventArgs e)

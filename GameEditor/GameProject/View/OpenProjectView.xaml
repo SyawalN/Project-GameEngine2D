@@ -4,33 +4,66 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GameEditor.GameProject.View"
-             mc:Ignorable="d" Width="800" Height="315"
+             xmlns:viewmodel="clr-namespace:GameEditor.GameProject.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewmodel:OpenProject, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d" Width="800"
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Style="{StaticResource BackgroundThemeMenu}">
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Margin="0, 15, 0, 30">
+    <UserControl.DataContext>
+        <viewmodel:OpenProject/>
+    </UserControl.DataContext>
+    <Border CornerRadius="3" Background="{StaticResource Editor.Window.GrayBrush3}" Width="700"
+            HorizontalAlignment="Center" Margin="0,30">
+        <StackPanel VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                        Margin="0, 0, 0, 30">
 
-            <ListBox Background="DarkGray" 
-                     Width="400" Height="200">
-                <TextBlock Text="List Project Muncul Disini"
-                           Width="350" FontSize="30" FontStyle="Italic"
-                           Margin="15"/>
-            </ListBox>
-            
+                <ListBox Width="400" Height="200"
+                         Grid.IsSharedSizeScope="True"
+                         HorizontalContentAlignment="Stretch"
+                         ItemsSource="{Binding Projects}"
+                         SelectedIndex="0"
+                         x:Name="projectListBox">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="OnListBox_MouseDoubleClick"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" FontSize="18" FontWeight="Bold" FontFamily="Consolas"
+                                       HorizontalAlignment="Left" TextTrimming="WordEllipsis"
+                                       Text="{Binding ProjectName}"/>
+                                <TextBlock Grid.Row="0"
+                                       HorizontalAlignment="Right"
+                                       Text="{Binding Date}"/>
+                                <TextBlock Grid.Row="1" TextTrimming="WordEllipsis"
+                                       Margin="0, 2, 0, 5"
+                                       Text="{Binding ProjectPath}"/>
+                            </Grid>
+                            <!--<StackPanel>
+                            <TextBlock Text="{Binding ProjectName}"/>
+                        </StackPanel>-->
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+
+                <Button Content="Open Project" Width="125" Height="30" FontSize="16"
+                        Margin="0, 0, 15, 0"
+                        Click="BtnOpen_Project" IsDefault="True"/>
+                <Button Content="Add Existing Project" Width="175" Height="30" FontSize="16"
+                        Margin="15, 0, 0, 0"/>
+
+            </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-            
-            <Button Content="Open Project"
-                    Width="125" Height="30"
-                    FontSize="16"
-                    Margin="0, 0, 15, 0"/>
-            <Button Content="Add Existing Project"
-                    Width="175" Height="30"
-                    FontSize="16"
-                    Margin="15, 0, 0, 0"/>
-            
-        </StackPanel>
-    </StackPanel>
+    </Border>
 </UserControl>

@@ -1,7 +1,14 @@
 ﻿
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\App.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Dictionaries\ControlTemplates.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\WorldEditor\GameObjectView.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\WorldEditor\ProjectHierarchyView.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\WorldEditor\SceneView.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\WorldEditor\WorldEditorView.xaml;;
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\GameProject\ProjectMenu.xaml;;
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\GameProject\View\CreateProjectView.xaml;;
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\GameProject\View\OpenProjectView.xaml;;
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\MainWindow.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Utilities\LoggerView.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Utilities\UndoRedoView.xaml;;
 
