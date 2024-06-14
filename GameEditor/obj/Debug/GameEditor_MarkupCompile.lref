@@ -1,6 +1,8 @@
 ﻿
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\App.xaml;;
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Dictionaries\ControlTemplates.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\GameObject\SpriteRendererView.xaml;;
+FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\GameObject\TransformView.xaml;;
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\WorldEditor\GameObjectView.xaml;;
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\WorldEditor\ProjectHierarchyView.xaml;;
 FC:\Users\ACER\source\repos\GameEngine2D\GameEditor\Editors\WorldEditor\SceneView.xaml;;

@@ -9,6 +9,7 @@
 			<IsActive>true</IsActive>
 			<Name>Default Scene</Name>
 			<ProjectReference z:Ref="i1"/>
+			<SkiaSharpRender xmlns:a="http://schemas.datacontract.org/2004/07/GameEngine"/>
 		</Scene>
 	</Scenes>
 </Game>

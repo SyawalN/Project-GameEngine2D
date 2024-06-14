@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameEditor"
+        xmlns:util="clr-namespace:GameEditor.Utilities"
         xmlns:editors="clr-namespace:GameEditor.Editors"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Game Editor" Height="768" Width="1366"

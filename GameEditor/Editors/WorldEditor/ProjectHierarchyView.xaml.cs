@@ -79,8 +79,10 @@ namespace GameEditor.Editors
 
                     SceneView.Instance.ActiveScene = currExpander.DataContext as Scene;
                     SceneView.Instance.ActiveScene.IsActive = true;
-                    SceneView.OnSceneChanged_UpdateCanvas(SceneView.Instance.ActiveScene, SceneView.Instance.Renderer);
                 }
+
+                if (SceneView.Instance.ActiveScene != null)
+                    SceneView.OnPropertyChanged_UpdateCanvas(SceneView.Instance.ActiveScene);
             }
         }
 

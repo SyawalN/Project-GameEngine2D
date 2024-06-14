@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="GameEditor.Editors.TransformView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GameEditor.Editors"
+             xmlns:comp="clr-namespace:GameEditor.Components"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=comp:Transform, IsDesignTimeCreatable=True}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="Spacing" BasedOn="{StaticResource LightTextBlockStyle}">
+            <Setter Property="Margin" Value="0,5" />
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!-- TODO: Create transform component property -->
+        <TextBlock Grid.Row="0" Text="Position" Style="{StaticResource Spacing}"/>
+        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Position.X}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Position.Y}" />
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Position.Z}" />
+
+        <TextBlock Grid.Row="2" Text="Scale" Style="{StaticResource Spacing}"/>
+        <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding Scale.X}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Scale.Y}" />
+    </Grid>
+</UserControl>
