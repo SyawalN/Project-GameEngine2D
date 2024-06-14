@@ -15,6 +15,7 @@ namespace GameEditor.Components
 {
     [DataContract]
     [KnownType(typeof(Transform))]
+    [KnownType(typeof(SpriteRenderer))]
     public class GameObject : ViewModelBase
     {
         private bool _isEnabled = true;
@@ -90,6 +91,7 @@ namespace GameEditor.Components
             Debug.Assert(scene != null);
             ParentScene = scene;
             _components.Add(new Transform(this));
+            _components.Add(new SpriteRenderer(this));
             OnDeserialized(new StreamingContext());
         }
     }

@@ -4,8 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GameEditor.Editors"
+             xmlns:util="clr-namespace:GameEditor.Utilities"
+             xmlns:comp="clr-namespace:GameEditor.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="200">
+    <UserControl.Resources>
+        <util:Vector3Converter x:Key="Vector3Converter"/>
+        <DataTemplate DataType="{x:Type comp:Transform}">
+            <local:TransformView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type comp:SpriteRenderer}">
+            <local:SpriteRendererView />
+        </DataTemplate>
+    </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <ScrollViewer.Style>
             <Style TargetType="ScrollViewer">
@@ -31,17 +42,17 @@
                     </ToggleButton.Content>
                 </ToggleButton>
             </Border>
-            <Grid>
+            <Grid Margin="5,5">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Name" HorizontalAlignment="Left" Style="{StaticResource LightTextBlockStyle}" Margin="5,0,0,0"/>
+                <TextBlock Text="Name" HorizontalAlignment="Left" Style="{StaticResource LightTextBlockStyle}"/>
                 <TextBox Text="{Binding Name}" Tag="{Binding RenameCommand}"
-                         Grid.Row="1" Margin="5,5"/>
+                         Grid.Row="1" Margin="0,5"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="Enabled" Style="{StaticResource LightTextBlockStyle}" Margin="5,0,0,0"/>
-                    <CheckBox IsChecked="{Binding IsEnabled, Mode=OneWay}" 
+                    <TextBlock Text="Enabled" Style="{StaticResource LightTextBlockStyle}"/>
+                    <CheckBox IsChecked="{Binding IsEnabled, Mode=OneWay}"
                               Command="{Binding IsEnabledCommand}"
                               CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
                               Margin="5,0" VerticalAlignment="Center"/>
@@ -53,17 +64,7 @@
                         <StackPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <!-- TODO: Create transform component property -->
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                <!-- GameObject component is viewed using this control -->
             </ItemsControl>
         </StackPanel>
     </ScrollViewer>

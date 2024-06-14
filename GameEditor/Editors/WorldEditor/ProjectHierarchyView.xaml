@@ -26,31 +26,31 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Expander IsExpanded="{Binding IsActive, Mode=OneWay}" Loaded="OnLoaded_Expander"
-                                  Expander.Expanded="OnExpanded_Expander">
+                                  Expander.Expanded="OnExpanded_Expander" HorizontalAlignment="Stretch">
                             <Expander.Header>
                                 <Grid>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}" Style="{StaticResource LightTextBlockStyle}"/>
-                                        <Button Content="Remove"
-                                                Command="{Binding DataContext.RemoveSceneCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding}" Margin="20,0" Focusable="False"/>
-                                        <Button Content="+" IsEnabled="{Binding IsActive}"
-                                                Click="OnClickBtn_AddGameObject"/>
-                                    </StackPanel>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource LightTextBlockStyle}" Grid.Column="0" HorizontalAlignment="Left"/>
+                                    <Button Content="Remove"
+                                        Command="{Binding DataContext.RemoveSceneCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}" Margin="10,0" Focusable="False" Grid.Column="1" HorizontalAlignment="Left"/>
+                                    <Button Content="+" IsEnabled="{Binding IsActive}"
+                                        Click="OnClickBtn_AddGameObject" Grid.Column="2" HorizontalAlignment="Right"/>
                                 </Grid>
                             </Expander.Header>
                             <ListBox ItemsSource="{Binding GameObjects}" IsEnabled="{Binding IsActive}" SelectionMode="Extended"
                                      HorizontalContentAlignment="Stretch" SelectionChanged="OnSelectionChanged_ListBox_GameObject">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid Margin="5,0">
+                                        <Grid Height="32" Margin="5,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="1*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="32"/>
-                                            </Grid.RowDefinitions>
                                             <TextBlock Grid.Column="0" Text="{Binding Name}" Style="{StaticResource LightTextBlockStyle}"/>
                                             <Button Grid.Column="1" Content="Remove"
                                                     Command="{Binding ParentScene.RemoveGameObjectCommand}" 

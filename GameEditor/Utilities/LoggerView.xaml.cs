@@ -24,12 +24,12 @@ namespace GameEditor.Utilities
         {
             InitializeComponent();
 
-            Loaded += (e, s) =>
-            {
-                Logger.Log(MessageType.Info, $"Information message");
-                Logger.Log(MessageType.Warning, $"Warning message");
-                Logger.Log(MessageType.Error, $"Error message");
-            };
+            //Loaded += (e, s) =>
+            //{
+            //    Logger.Log(MessageType.Info, $"Information message");
+            //    Logger.Log(MessageType.Warning, $"Warning message");
+            //    Logger.Log(MessageType.Error, $"Error message");
+            //};
         }
 
         private void OnBtnClick_ClearLog(object sender, RoutedEventArgs e)

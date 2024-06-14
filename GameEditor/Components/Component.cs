@@ -19,5 +19,8 @@ namespace GameEditor.Components
             Debug.Assert(owner != null);
             Owner = owner;
         }
+
+        public Component()
+        { }
     }
 }

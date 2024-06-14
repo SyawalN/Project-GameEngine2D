@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameEditor.Editors;
+using GameEditor.Utilities.Wrapper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -15,9 +17,9 @@ namespace GameEditor.Components
     [DataContract]
     class Transform : Component
     {
-        private Vector3 _position;
+        private Vector3Wrapper _position;
         [DataMember]
-        public Vector3 Position
+        public Vector3Wrapper Position
         {
             get => _position;
             set
@@ -30,24 +32,9 @@ namespace GameEditor.Components
             }
         }
 
-        private Vector3 _rotation;
+        private Vector2Wrapper _scale;
         [DataMember]
-        public Vector3 Rotation
-        {
-            get => _rotation;
-            set
-            {
-                if (_rotation != value)
-                {
-                    _rotation = value;
-                    OnPropertyChanged(nameof(Rotation));
-                }
-            }
-        }
-
-        private Vector3 _scale;
-        [DataMember]
-        public Vector3 Scale
+        public Vector2Wrapper Scale
         {
             get => _scale;
             set
@@ -56,13 +43,18 @@ namespace GameEditor.Components
                 {
                     _scale = value;
                     OnPropertyChanged(nameof(Scale));
+                    SceneView.OnPropertyChanged_UpdateCanvas(SceneView.Instance.ActiveScene);
                 }
             }
         }
 
         public Transform(GameObject owner) : base(owner)
         {
-
+            _position = new Vector3Wrapper(new Vector3(0, 0, 0));
+            _scale = new Vector2Wrapper(new Vector2(0, 0));
         }
+
+        public Transform()
+        { }
     }
 }

@@ -62,3 +62,7 @@ C:\Users\ACER\source\repos\GameEngine2D\GameEditor\output\Debug\GameEngine.dll
 C:\Users\ACER\source\repos\GameEngine2D\GameEditor\output\Debug\GameEngine.pdb
 C:\Users\ACER\source\repos\GameEngine2D\GameEditor\obj\Debug\Editors\WorldEditor\SceneView.g.cs
 C:\Users\ACER\source\repos\GameEngine2D\GameEditor\obj\Debug\Editors\WorldEditor\SceneView.baml
+C:\Users\ACER\source\repos\GameEngine2D\GameEditor\obj\Debug\Editors\GameObject\TransformView.g.cs
+C:\Users\ACER\source\repos\GameEngine2D\GameEditor\obj\Debug\Editors\GameObject\TransformView.baml
+C:\Users\ACER\source\repos\GameEngine2D\GameEditor\obj\Debug\Editors\GameObject\SpriteRendererView.g.cs
+C:\Users\ACER\source\repos\GameEngine2D\GameEditor\obj\Debug\Editors\GameObject\SpriteRendererView.baml
