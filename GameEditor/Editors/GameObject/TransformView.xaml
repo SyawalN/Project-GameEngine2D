@@ -24,15 +24,21 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <!-- TODO: Create transform component property -->
-        <TextBlock Grid.Row="0" Text="Position" Style="{StaticResource Spacing}"/>
-        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Position.X}" />
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Position.Y}" />
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Position.Z}" />
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Vertical">
+            <Border Grid.Row="0" Height="3" Background="{StaticResource Editor.Window.GrayBrush4}" 
+                        HorizontalAlignment="Stretch" Margin="0,10,0,10"/>
+            <TextBlock Text="Transform" FontWeight="Bold" Style="{StaticResource Spacing}"/>
+        </StackPanel>
 
-        <TextBlock Grid.Row="2" Text="Scale" Style="{StaticResource Spacing}"/>
-        <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding Scale.X}" />
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Scale.Y}" />
+        <TextBlock Grid.Row="1" Text="Position" Style="{StaticResource Spacing}"/>
+        <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Position.X}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Position.Y}" />
+        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Position.Z}" />
+
+        <TextBlock Grid.Row="3" Text="Scale" Style="{StaticResource Spacing}"/>
+        <TextBox Grid.Row="4" Grid.Column="0" Text="{Binding Scale.X}" />
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Scale.Y}" />
     </Grid>
 </UserControl>

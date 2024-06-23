@@ -42,7 +42,7 @@
                                         Click="OnClickBtn_AddGameObject" Grid.Column="2" HorizontalAlignment="Right"/>
                                 </Grid>
                             </Expander.Header>
-                            <ListBox ItemsSource="{Binding GameObjects}" IsEnabled="{Binding IsActive}" SelectionMode="Extended"
+                            <ListBox ItemsSource="{Binding GameObjects}" IsEnabled="{Binding IsActive}" SelectionMode="Single"
                                      HorizontalContentAlignment="Stretch" SelectionChanged="OnSelectionChanged_ListBox_GameObject">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>

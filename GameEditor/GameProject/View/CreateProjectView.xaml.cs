@@ -29,7 +29,6 @@ namespace GameEditor.GameProject.View
             InitializeComponent();
         }
 
-        // EventHandler - Apabila user menekan tombol 'Create Project'
         private void OnClickBtn_Create(object sender, RoutedEventArgs e)
         {
             // Data context ViewModel - Create Project

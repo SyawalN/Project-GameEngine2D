@@ -22,30 +22,37 @@ namespace GameEditor.Components
             {
                 if (_colorName != value)
                 {
-                    _colorName = value;
-                    SKColor = GetSKColorFromName(value);
+                    _colorName = value.Substring(0, 1).ToUpper() + value.ToLower().Substring(1);
+                    SKPaintColor = GetSKColorFromName(_colorName);
                     OnPropertyChanged(nameof(ColorName));
                     SceneView.OnPropertyChanged_UpdateCanvas(SceneView.Instance.ActiveScene);
                 }
             }
         }
 
-        private SKColor _skColor;
-        [DataMember]
-        public SKColor SKColor
+        private SKColor _skPaintColor;
+
+        // Serialize SKColor as a string type
+        [DataMember(Name = "SKPaintColor")]
+        private string SKPaintColor_Serialized
         {
-            get => _skColor;
+            get => _skPaintColor.ToString();
+            set => _skPaintColor = SKColor.Parse(value);
+        }
+        public SKColor SKPaintColor
+        {
+            get => _skPaintColor;
             set
             {
-                if (_skColor != value)
+                if (_skPaintColor != value)
                 {
-                    _skColor = value;
-                    OnPropertyChanged(nameof(SKColor));
+                    _skPaintColor = value;
+                    OnPropertyChanged(nameof(SKPaintColor));
                 }
             }
         }
 
-        private string _paintMode;
+        private string _paintMode = "Solid Color";
         [DataMember]
         public string PaintMode
         {
@@ -77,7 +84,22 @@ namespace GameEditor.Components
             }
         }
 
-        private SKColor GetSKColorFromName(string colorName)
+        private string _imagePath = "None";
+        [DataMember]
+        public string ImagePath
+        {
+            get => _imagePath;
+            set
+            {
+                if (_imagePath != value)
+                {
+                    _imagePath = value;
+                    OnPropertyChanged(nameof(ImagePath));
+                }
+            }
+        }
+
+        public SKColor GetSKColorFromName(string colorName)
         {
             colorName = colorName.ToLower();
 
@@ -87,6 +109,7 @@ namespace GameEditor.Components
                    colorName == "cyan" ? SKColors.Cyan :
                    colorName == "magenta" ? SKColors.Magenta :
                    colorName == "yellow" ? SKColors.Yellow :
+                   colorName.Substring(0, 1) == "#" && SKColor.TryParse(colorName, out SKColor hexColor) ? hexColor :
                    colorName == "black" ? SKColors.Black : SKColors.Black;
         }
 
@@ -108,7 +131,7 @@ namespace GameEditor.Components
         public SpriteRenderer(GameObject owner) : base(owner)
         {
             ColorName = "Black";
-            PaintMode = "Stroke";
+            PaintMode = "None";
         }
 
         public SpriteRenderer()

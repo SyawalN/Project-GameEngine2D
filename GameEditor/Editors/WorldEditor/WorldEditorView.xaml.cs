@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,33 @@ namespace GameEditor.Editors
             Loaded -= OnWorldEditorViewLoaded;
             Focus();
             ((INotifyCollectionChanged)Project.UndoRedo.UndoList).CollectionChanged += (s, e) => Focus();
+        }
+
+        private void OnClick_BtnPlay(object sender, RoutedEventArgs e)
+        {
+            if (GameInstance.Game == null) GameInstance.Game = new GameInstance();
+
+            GamePlayView gamePlayWindow = new GamePlayView();
+            GameInstance.Game.Project = Project.Current;
+            GameInstance.Game.CurrentScene = Project.Current.Scenes.ToList().FirstOrDefault(x => x.IsActive == true);
+
+            gamePlayWindow.Owner = Window.GetWindow(this);
+            gamePlayWindow.DataContext = GameInstance.Game;
+            gamePlayWindow.Width = 905;
+            gamePlayWindow.Height = 381;
+            gamePlayWindow.Show();
+
+            IsEnabled = false;
+
+            gamePlayWindow.Closed += (sender, args) =>
+            {
+                IsEnabled = true;
+            };
+        }
+
+        private void OnClick_BtnReloadSceneView(object sender, RoutedEventArgs e)
+        {
+            SceneView.Renderer.InvalidateVisual();
         }
     }
 }

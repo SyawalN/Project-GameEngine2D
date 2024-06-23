@@ -2,8 +2,7 @@
 		 xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<Folders xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 		<a:string>.GameEngine2D</a:string>
-		<a:string>Content</a:string>
-		<a:string>GameCode</a:string>
+		<a:string>Assets</a:string>
 	</Folders>
 	<ProjectFile>project.2dproj</ProjectFile>
 </ProjectTemplate>

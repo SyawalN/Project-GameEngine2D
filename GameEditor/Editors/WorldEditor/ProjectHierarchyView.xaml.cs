@@ -1,8 +1,10 @@
 ﻿using GameEditor.Components;
 using GameEditor.GameProject.ViewModel;
 using GameEditor.Utilities;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +47,7 @@ namespace GameEditor.Editors
             if (e.AddedItems.Count > 0)
             {
                 GameObjectView.Instance.DataContext = (sender as ListBox).SelectedItems[0];
+                SceneView.Instance.ActiveScene.SelectedGameObject = (GameObject) (sender as ListBox).SelectedItem;
             }
 
             var newSelection = listBox.SelectedItems.Cast<GameObject>().ToList();
@@ -57,10 +60,12 @@ namespace GameEditor.Editors
                 },
                 () => { // Redo action
                     listBox.UnselectAll();
-                    previousSelection.ForEach(x => (listBox.ItemContainerGenerator.ContainerFromItem(x) as ListBoxItem).IsSelected = true);
+                    newSelection.ForEach(x => (listBox.ItemContainerGenerator.ContainerFromItem(x) as ListBoxItem).IsSelected = true);
                 },
                 "Selection changed"
                 ));
+
+            SceneView.Renderer.InvalidateVisual();
         }
 
         private void OnExpanded_Expander(object sender, RoutedEventArgs e)
@@ -84,6 +89,8 @@ namespace GameEditor.Editors
                 if (SceneView.Instance.ActiveScene != null)
                     SceneView.OnPropertyChanged_UpdateCanvas(SceneView.Instance.ActiveScene);
             }
+
+            GameObjectView.Instance.DataContext = SceneView.Instance.ActiveScene.SelectedGameObject;
         }
 
         private void OnLoaded_Expander(object sender, RoutedEventArgs e)

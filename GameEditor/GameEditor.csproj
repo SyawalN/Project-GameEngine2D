@@ -86,7 +86,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\Collision.cs" />
     <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\Controller.cs" />
     <Compile Include="Components\GameObject.cs" />
     <Compile Include="Components\SpriteRenderer.cs" />
     <Compile Include="Components\Transform.cs" />
@@ -102,6 +104,9 @@
     <Compile Include="Editors\WorldEditor\GameObjectView.xaml.cs">
       <DependentUpon>GameObjectView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\WorldEditor\GamePlayView.xaml.cs">
+      <DependentUpon>GamePlayView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\WorldEditor\ProjectHierarchyView.xaml.cs">
       <DependentUpon>ProjectHierarchyView.xaml</DependentUpon>
     </Compile>
@@ -111,6 +116,7 @@
     <Compile Include="Editors\WorldEditor\WorldEditorView.xaml.cs">
       <DependentUpon>WorldEditorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameInstance\GameInstance.cs" />
     <Compile Include="GameProject\Core\RelayCommand.cs" />
     <Compile Include="GameProject\ViewModel\OpenProject.cs" />
     <Compile Include="GameProject\ViewModel\Project.cs" />
@@ -146,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\WorldEditor\GameObjectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\WorldEditor\GamePlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
