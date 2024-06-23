@@ -1,4 +1,5 @@
-﻿using GameEditor.GameProject.ViewModel;
+﻿using GameEditor.Editors;
+using GameEditor.GameProject.ViewModel;
 using GameEditor.Utilities;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace GameEditor.Components
                 {
                     _isEnabled = value;
                     OnPropertyChanged(nameof(IsEnabled));
+                    SceneView.OnPropertyChanged_UpdateCanvas(SceneView.Instance.ActiveScene);
                 }
             }
         }
@@ -48,7 +50,8 @@ namespace GameEditor.Components
             }
         }
 
-        public ICommand RenameCommand { get; private set; }
+        public ICommand RenameGameObjectCommand { get; private set; }
+        public ICommand RenameParentSceneCommand { get; private set; }
         public ICommand IsEnabledCommand { get; private set; }
 
         [DataMember]
@@ -67,7 +70,7 @@ namespace GameEditor.Components
                 OnPropertyChanged(nameof(Components));
             }
 
-            RenameCommand = new RelayCommand<string>(x =>
+            RenameGameObjectCommand = new RelayCommand<string>(x =>
             {
                 var oldName = _name;
                 Name = x;
@@ -75,6 +78,15 @@ namespace GameEditor.Components
                 Project.UndoRedo.Add(new UndoRedoAction(nameof(Name), this,
                     oldName, x, $"Rename gameObject '{oldName}' to '{x}'"));
             }, x => x != _name);
+
+            RenameParentSceneCommand = new RelayCommand<string>(x =>
+            {
+                var oldName = ParentScene.Name;
+                ParentScene.Name = x;
+
+                Project.UndoRedo.Add(new UndoRedoAction(nameof(ParentScene.Name), ParentScene,
+                    oldName, x, $"Rename scene '{oldName}' to '{x}'"));
+            });
 
             IsEnabledCommand = new RelayCommand<bool>(x =>
             {

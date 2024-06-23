@@ -6,6 +6,7 @@ using SkiaSharp.Views.WPF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace GameEditor.Editors
     {
         public static SceneView Instance { get; private set; }
         public static SKElement Renderer;
+        public GameObject SelectedGameObject;
         public Scene ActiveScene;
 
         public SceneView()
@@ -49,18 +51,27 @@ namespace GameEditor.Editors
         {
             if (ActiveScene == null) return;
 
+            float scaleX = (float)(e.Info.Width / SKElement.ActualWidth);
+            float scaleY = (float)(e.Info.Height / SKElement.ActualHeight);
+
+            e.Surface.Canvas.Scale(scaleX, scaleY);
+
             SKCanvas canvas = e.Surface.Canvas;
             List<Components.Transform> transfromList = new List<Components.Transform>();
             List<SpriteRenderer> spriteRendererList = new List<SpriteRenderer>();
 
-            int width = 1500;
-            int height = 1500;
+            int width = e.Info.Width;
+            int height = e.Info.Height;
+
             // Background
+            canvas.Clear();
             canvas.DrawRect(0, 0, width, height, new SKPaint() { Color = SKColors.Gray, Style = SKPaintStyle.Fill, IsAntialias = true });
 
             //canvas.Clear();
             foreach (var gameObject in ActiveScene.GameObjects)
             {
+                if (gameObject.IsEnabled == false) continue;
+
                 Components.Transform transform = null;
                 SpriteRenderer spriteRenderer = null;
 
@@ -78,28 +89,35 @@ namespace GameEditor.Editors
                     }
                 }
 
-                if (transform != null && spriteRenderer != null)
+                if (transform != null || spriteRenderer != null && spriteRenderer.ImagePath != "None")
                 {
-                    ActiveScene?.SkiaSharpRender.Render(canvas, transform.Position.Vector, transform.Scale.Vector, new SKPaint()
+                    if (spriteRenderer.PaintMode == "Solid Color")
                     {
-                        Color = spriteRenderer.SKColor,
-                        Style = spriteRenderer.SKPaintStyle,
+                        ActiveScene?.SkiaSharpRender.RenderSolidColor(canvas, transform.Position.Vector, transform.Scale.Vector, new SKPaint()
+                        {
+                            Color = spriteRenderer.SKPaintColor,
+                            Style = spriteRenderer.SKPaintStyle,
+                            IsAntialias = true
+                        });
+                    }
+                    else if (spriteRenderer.PaintMode == "Image")
+                    {
+                        ActiveScene?.SkiaSharpRender.RenderImage(canvas, transform.Position.Vector, transform.Scale.Vector, spriteRenderer.ImagePath);
+                    }
+                }
+
+                // Game object outline
+                if (ActiveScene.SelectedGameObject != null && ActiveScene.SelectedGameObject.IsEnabled == true)
+                {
+                    Components.Transform currObject = ActiveScene.SelectedGameObject.Components.OfType<Components.Transform>().FirstOrDefault();
+                    Instance.ActiveScene?.SkiaSharpRender.RenderSolidColor(canvas, currObject.Position.Vector, currObject.Scale.Vector, new SKPaint()
+                    {
+                        Color = SKColors.Black,
+                        Style = SKPaintStyle.Stroke,
+                        StrokeWidth = 2f,
                         IsAntialias = true
                     });
                 }
-
-                Renderer.InvalidateVisual();
-            }
-        }
-
-        private static void RenderObjects(object sender, EventArgs e)
-        {
-            SkiaSharpService.posX += 10;
-            Renderer?.InvalidateVisual();
-            if (SkiaSharpService.posX > 100)
-            {
-                SkiaSharpService.posX = 0;
-                CompositionTarget.Rendering -= RenderObjects;
             }
         }
 

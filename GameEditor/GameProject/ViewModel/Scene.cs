@@ -17,6 +17,8 @@ namespace GameEditor.GameProject.ViewModel
     [DataContract]
     public class Scene : ViewModelBase
     {
+        public GameObject SelectedGameObject { get; set; }
+
         [DataMember]
         public SkiaSharpService SkiaSharpRender { get; private set; }
 

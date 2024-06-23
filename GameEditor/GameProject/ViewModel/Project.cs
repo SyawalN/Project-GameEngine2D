@@ -29,7 +29,6 @@ namespace GameEditor.GameProject.ViewModel
         public ReadOnlyObservableCollection<Scene> Scenes
         { get; private set; }
 
-        // Properti scene aktif
         private Scene _activeScene;
         public Scene ActiveScene
         {
@@ -55,21 +54,18 @@ namespace GameEditor.GameProject.ViewModel
         public ICommand RemoveSceneCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
 
-        // Menambahkan scene baru
         private void AddScene(string sceneName)
         {
             Debug.Assert(!string.IsNullOrEmpty(sceneName.Trim()));
             _scenes.Add(new Scene(this, sceneName));
         }
 
-        // Menghapus scene
         private void RemoveScene(Scene scene)
         {
             Debug.Assert(_scenes.Contains(scene));
             _scenes.Remove(scene);
         }
 
-        // Memuat data project
         public static Project Load(string file)
         {
             Debug.Assert(File.Exists(file));

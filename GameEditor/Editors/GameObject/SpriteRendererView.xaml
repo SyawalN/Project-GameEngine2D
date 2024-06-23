@@ -10,23 +10,45 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <util:SKColorsConverter x:Key="SkColorsConverter"/>
         <DataTemplate x:Key="None">
         </DataTemplate>
         <DataTemplate x:Key="Solid Color">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Color" Style="{StaticResource LightTextBlockStyle}"/>
-                <TextBox Grid.Column="1" Text="{Binding ColorName}" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Color" Style="{StaticResource LightTextBlockStyle}" Margin="0,5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ColorName}" Margin="0,5"/>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="Image">
-            <StackPanel>
-                <TextBlock Text="Choose an image" />
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Choose an image" Style="{StaticResource LightTextBlockStyle}" Margin="0,5"/>
+                <Button Grid.Row="1" Grid.Column="1" Style="{x:Null}" Click="OnClick_SetImage"
+                        HorizontalAlignment="Center" Width="60" Margin="0,5">
+                    <TextBlock Text="{Binding ImagePath}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"
+                               VerticalAlignment="Center" ToolTip="{Binding ImagePath}">
+                        <TextBlock.Style>
+                            <Style>
+                                <Setter Property="ToolTipService.InitialShowDelay" Value="400"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Button>
+            </Grid>
         </DataTemplate>
         
         <Style TargetType="TextBlock" x:Key="Spacing" BasedOn="{StaticResource LightTextBlockStyle}">
@@ -34,8 +56,8 @@
         </Style>
         <Style TargetType="Button" x:Key="DropdownButton">
             <Setter Property="Width" Value="90"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background">
                 <Setter.Value>
@@ -121,10 +143,10 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!-- TODO: Create transform component property -->
-        <TextBlock Text="Sprite Renderer" Style="{StaticResource Spacing}"/>
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Render Type" Style="{StaticResource Spacing}"/>
+        <TextBlock Text="Sprite Renderer" FontWeight="Bold" Style="{StaticResource Spacing}"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Text="Render Type" Style="{StaticResource Spacing}"/>
         <Button Name="Btn_RenderType" Content="{Binding PaintMode}" Style="{StaticResource DropdownButton}"
-                Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right">
+                Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5">
             <Button.ContextMenu>
                 <ContextMenu />
             </Button.ContextMenu>
